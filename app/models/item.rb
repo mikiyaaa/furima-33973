@@ -4,12 +4,17 @@ class Item < ApplicationRecord
   with_options presence: true do
     validates :item_name
     validates :description
-    validates :category_id, numericality: { other_than: 1 }
-    validates :status_id, numericality: { other_than: 1 }
-    validates :shipping_cost_id, numericality: { other_than: 1 }
-    validates :prefecture_id, numericality: { other_than: 1 }
-    validates :shipping_day_id, numericality: { other_than: 1 }
-    validates :price
+
+    with_options numericality: { other_than: 1 } do
+      validates :category_id
+      validates :status_id
+      validates :shipping_cost_id
+      validates :prefecture_id
+      validates :shipping_day_id
+    end
+
+    validates :price, inclusion: { in:300..9999999 }
+    validates :price, format: { with: /\A[0-9]+\z/ }
   end
 
   class Article < ApplicationRecord
