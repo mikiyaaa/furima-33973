@@ -15,7 +15,7 @@ class Item < ApplicationRecord
       validates :shipping_day_id
     end
 
-    validates :price, inclusion: { in:300..9999999 }, format: { with: /\A[0-9]+\z/ }
+    validates :price, inclusion: { in: 300..9_999_999 }, format: { with: /\A[0-9]+\z/ }
   end
 
   class Article < ApplicationRecord
