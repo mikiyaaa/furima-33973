@@ -11,19 +11,16 @@ class Item < ApplicationRecord
       validates :category_id
       validates :status_id
       validates :shipping_cost_id
-      validates :prefecture_id
       validates :shipping_day_id
     end
 
     validates :price, inclusion: { in: 300..9_999_999 }, format: { with: /\A[0-9]+\z/ }
   end
 
-  class Article < ApplicationRecord
-    extend ActiveHash::Associations::ActiveRecordExtensions
-    belongs_to :category
-    belongs_to :status
-    belongs_to :shipping_cost
-    belongs_to :prefecture
-    belongs_to :shipping_day
-  end
+  extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to :category
+  belongs_to :status
+  belongs_to :shipping_cost
+  belongs_to :prefecture
+  belongs_to :shipping_day
 end
