@@ -19,7 +19,6 @@ RSpec.describe OrderDestination, type: :model do
       end
     end
 
-
     context '保存できないとき' do
       it 'post_codeが空だと保存できないこと' do
         @order_destination.post_code = nil
@@ -29,7 +28,7 @@ RSpec.describe OrderDestination, type: :model do
       it 'post_codeが半角のハイフンを含んだ正しい形式でないと保存できないこと' do
         @order_destination.post_code = '1234567'
         @order_destination.valid?
-        expect(@order_destination.errors.full_messages).to include("Post code is invalid. Include hyphen(-)")
+        expect(@order_destination.errors.full_messages).to include('Post code is invalid. Include hyphen(-)')
       end
       it 'prefecture_idを選択していないと保存できないこと' do
         @order_destination.prefecture_id = nil
@@ -54,7 +53,7 @@ RSpec.describe OrderDestination, type: :model do
       it 'phone_numberは11桁の数値でないと保存できないこと' do
         @order_destination.phone_number = '0901234567'
         @order_destination.valid?
-        expect(@order_destination.errors.full_messages).to include("Phone number is invalid")
+        expect(@order_destination.errors.full_messages).to include('Phone number is invalid')
       end
       it 'トークンが空では保存できないこと' do
         @order_destination.token = nil

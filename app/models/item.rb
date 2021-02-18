@@ -7,8 +7,8 @@ class Item < ApplicationRecord
     validates :image
     validates :item_name
     validates :description
-    validates :prefecture_id, numericality: {only_integer: true }
-    
+    validates :prefecture_id, numericality: { only_integer: true }
+
     with_options numericality: { other_than: 1 } do
       validates :category_id
       validates :status_id
