@@ -11,6 +11,7 @@ class OrdersController < ApplicationController
   def create 
     @order_destination = OrderDestination.new(order_params)
     if @order_destination.valid?
+      pay_order
       @order_destination.save
       redirect_to controller: :items, action: :index
     else
@@ -20,7 +21,7 @@ class OrdersController < ApplicationController
 
   private
   def order_params
-    params.require(:order_destination).permit(:post_code, :prefecture_id, :city, :address, :building_name, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id])
+    params.require(:order_destination).permit(:post_code, :prefecture_id, :city, :address, :building_name, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
 
   def set_ordrer_item
@@ -31,6 +32,15 @@ class OrdersController < ApplicationController
     if current_user == @item.user
       redirect_to controller: :items, action: :index
     end
+  end
+
+  def pay_order
+    Payjp.api_key = ENV['FURIMA_SECRET_KEY'] 
+    Payjp::Charge.create(
+      amount: set_ordrer_item[:price],  # 商品の値段
+      card: order_params[:token],    # カードトークン
+      currency: 'jpy'
+    )
   end
 
 end
