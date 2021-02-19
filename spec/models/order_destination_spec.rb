@@ -53,12 +53,27 @@ RSpec.describe OrderDestination, type: :model do
       it 'phone_numberは11桁の数値でないと保存できないこと' do
         @order_destination.phone_number = '0901234567'
         @order_destination.valid?
-        expect(@order_destination.errors.full_messages).to include('Phone number is invalid')
+        expect(@order_destination.errors.full_messages).to include("Phone number is invalid")
+      end
+      it 'phone_numberは英数混合では保存できないこと' do
+        @order_destination.phone_number = '0901234567a'
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include("Phone number is invalid")
       end
       it 'トークンが空では保存できないこと' do
         @order_destination.token = nil
         @order_destination.valid?
         expect(@order_destination.errors.full_messages).to include("Token can't be blank")
+      end
+      it 'user_idが空では保存できないこと' do
+        @order_destination.user_id = nil
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_idが空では保存できないこと' do
+        @order_destination.item_id = nil
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include("Item can't be blank")
       end
     end
   end

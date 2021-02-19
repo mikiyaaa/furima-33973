@@ -1,8 +1,6 @@
 const pay = () => {
-  // テスト公開鍵を設定
   Payjp.setPublicKey(process.env.FURIMA_PUBLIC_KEY);
 
-  // トークン発行のための処理
   const form = document.getElementById("charge-form");
 
   form.addEventListener("submit", (e) => {

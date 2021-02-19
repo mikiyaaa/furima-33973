@@ -39,8 +39,8 @@ class OrdersController < ApplicationController
   def pay_order
     Payjp.api_key = ENV['FURIMA_SECRET_KEY']
     Payjp::Charge.create(
-      amount: set_ordrer_item[:price],  # 商品の値段
-      card: order_params[:token],    # カードトークン
+      amount: set_ordrer_item[:price],
+      card: order_params[:token],
       currency: 'jpy'
     )
   end
